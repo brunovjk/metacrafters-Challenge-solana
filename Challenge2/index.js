@@ -82,31 +82,29 @@ const transferSol = async (lamportsAmount) => {
   }
 };
 
+const consoleBalance = async () => {
+  console.log(
+    `From wallet balance: ${
+      parseInt(await getWalletBalance(from.publicKey)) / LAMPORTS_PER_SOL
+    } SOL`
+  );
+  console.log(
+    `To wallet balance: ${
+      parseInt(await getWalletBalance(to.publicKey)) / LAMPORTS_PER_SOL
+    } SOL`
+  );
+};
 // Show the wallet balance before and after transfer SOL
 const mainFunction = async () => {
-  // await airdropTwo(from.publicKey);
   console.log(
     `From wallet balance: ${
       parseInt(await getWalletBalance(from.publicKey)) / LAMPORTS_PER_SOL
     } SOL`
   );
-  console.log(
-    `To wallet balance: ${
-      parseInt(await getWalletBalance(to.publicKey)) / LAMPORTS_PER_SOL
-    } SOL`
-  );
-
+  await airdropTwo(from.publicKey);
+  await consoleBalance();
   await transferSol(Math.round((await getWalletBalance(from.publicKey)) / 2));
-  console.log(
-    `From wallet balance: ${
-      parseInt(await getWalletBalance(from.publicKey)) / LAMPORTS_PER_SOL
-    } SOL`
-  );
-  console.log(
-    `To wallet balance: ${
-      parseInt(await getWalletBalance(to.publicKey)) / LAMPORTS_PER_SOL
-    } SOL`
-  );
+  await consoleBalance();
 };
 
 mainFunction();
